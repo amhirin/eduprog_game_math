@@ -281,7 +281,7 @@ class _WidgetNumberState extends State<WidgetNumber>{
       children: <Widget>[
         Container(
           child: Text(
-            "${widget.number.toString()}", style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+            "${widget.number.toString()}", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
 
           ),
           decoration: BoxDecoration(
@@ -496,7 +496,7 @@ class _MyGameState extends State<MyGame> {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      "+", style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                      "+", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
 
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -690,6 +690,7 @@ class _MyGameState extends State<MyGame> {
 
                         Future.delayed(Duration(milliseconds: 200), (){
                           if ((_var_soal1 + _var_soal2) == _var_opsi4){
+                            _score++;
                             _keterangan = "Benar";
                           }else{
                             _gameOver = true;
