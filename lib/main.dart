@@ -924,7 +924,9 @@ class _MyGameState extends State<MyGame> {
   }
   @override
   void initState() {
-    if (widget.level == 1){
+    if (widget.level == 0){
+      _timeLevel = 20;
+    }else if (widget.level == 1){
       _timeLevel = 15;
     }else if (widget.level == 2){
       _timeLevel = 10;
