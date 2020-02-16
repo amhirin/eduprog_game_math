@@ -29,11 +29,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  int _level = 1;
-  String _descLevel = "TK Kecil";
-  
+  int _level = 0;
+  String _descLevel = "Belum TK";
+
+  double wp(Size sz, double perc){
+    return sz.width * (perc / 100);
+  }
+
+  double hp(Size sz, double perc){
+    return sz.height * (perc / 100);
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size sz = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -43,20 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 10,),
               Center(
                 child: Container(
-                  height: 245,
-                  width: 230,
+                  height: hp(sz, 24),
+                  width: wp(sz, 41.6),
                   child: FittedBox(
                     child: Image.asset('assets/abil.png'),
                     fit: BoxFit.fill,
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: hp(sz, 2.3),),
               Container(
                 alignment: Alignment.center,
-                child: Text("Game Matematika Nabila", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.lightBlue),),
+                child: Text("Game Matematika Nabila", style: TextStyle(fontSize: hp(sz, 2.9), fontWeight: FontWeight.bold, color: Colors.lightBlue),),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: hp(sz, 2.3),),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(5.0),
@@ -67,13 +76,47 @@ class _MyHomePageState extends State<MyHomePage> {
                     ]
                 ),
 
-                child: Text("Pilih Level", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+                child: Text("Pilih Level", style: TextStyle(fontSize: hp(sz, 2.9), fontWeight: FontWeight.bold, color: Colors.black),),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: hp(sz, 2.3),),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              _level = 0;
+                              _descLevel = "Belum TK";
+                            });
+                          },
+                          child: AnimatedContainer(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                              child: Text("0", style: TextStyle(fontSize: hp(sz, 8.2), fontWeight: FontWeight.bold),),
+                              decoration: BoxDecoration(
+                                color: _level == 0 ? Colors.red : Colors.transparent,
+                                border: Border.all(color: Colors.grey, ),
+                              )
+                          ),
+                        ),
+                        SizedBox(height: 5,),
+                        AnimatedContainer(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.ease,
+                            height: 10,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                              color: _level == 0 ? Colors.red : Colors.transparent,
+                            )
+                        )
+                      ],
+                    ),
                     Column(
                       children: <Widget>[
                         InkWell(
@@ -88,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               curve: Curves.ease,
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              child: Text("1", style: TextStyle(fontSize: 70, fontWeight: FontWeight.bold),),
+                              child: Text("1", style: TextStyle(fontSize: hp(sz, 8.2), fontWeight: FontWeight.bold),),
                               decoration: BoxDecoration(
                                 color: _level == 1 ? Colors.red : Colors.transparent,
                                 border: Border.all(color: Colors.grey, ),
@@ -122,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               curve: Curves.ease,
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              child: Text("2", style: TextStyle(fontSize: 70, fontWeight: FontWeight.bold),),
+                              child: Text("2", style: TextStyle(fontSize: hp(sz, 8.2), fontWeight: FontWeight.bold),),
                               decoration: BoxDecoration(
                                 color: _level == 2 ? Colors.red : Colors.transparent,
                                 border: Border.all(color: Colors.grey, ),
@@ -156,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               curve: Curves.ease,
                               alignment: Alignment.center,
                               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              child: Text("3", style: TextStyle(fontSize: 70, fontWeight: FontWeight.bold),),
+                              child: Text("3", style: TextStyle(fontSize: hp(sz, 8.2), fontWeight: FontWeight.bold),),
                               decoration: BoxDecoration(
                                 color: _level == 3 ? Colors.red : Colors.transparent,
                                 border: Border.all(color: Colors.grey, ),
@@ -194,9 +237,9 @@ class _MyHomePageState extends State<MyHomePage> {
               SizedBox(height: 10,),
               Container(
                 alignment: Alignment.center,
-                child: Icon(Icons.school, size: 50,),
+                child: Icon(Icons.school, size: hp(sz, 5.8),),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: hp(sz, 3.5),),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -221,7 +264,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                         ),
 
-                        child: Text("Mulai Sekarang", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),),
+                        child: Text("Mulai Sekarang", style: TextStyle(fontSize: hp(sz, 2.1), fontWeight: FontWeight.bold, color: Colors.black),),
                       ),
                     ),
                     SizedBox(height: 20,)
@@ -438,12 +481,13 @@ class _MyGameState extends State<MyGame> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: Text("$title"),
-          content: Text("$content", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+          title: Text("$title", style: TextStyle(color: Colors.blue, fontSize: 20),),
+          content: Text("$content", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             FlatButton(
               child: Text("Tutup"),
+              color: Colors.red,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -462,6 +506,34 @@ class _MyGameState extends State<MyGame> {
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
+          _gameOver? Container(
+            alignment: Alignment.center,
+              child: FlatButton.icon(onPressed: (){
+                _totalBintang = 0;
+                _gameOver = false;
+                _gameStart = true;
+                if (widget.level == 0){
+                  _timeLevel = 20;
+                }else if (widget.level == 1){
+                  _timeLevel = 15;
+                }else if (widget.level == 2){
+                  _timeLevel = 10;
+                }else{
+                  _timeLevel = 5;
+                }
+                _timeLevelRemain = _timeLevel;
+                Future.delayed(Duration(milliseconds: 500), (){
+                  _soalNo = 1;
+
+                  _gameStart = true;
+                  _timerProgress = _size.width;
+                  generateSoal();
+                  startTimerWaktu();
+                });
+              }, icon: Icon(Icons.refresh, color: Colors.red,), label: Text("Klik Mulai Lagi", style: TextStyle(color: Colors.red),),),
+          ) : Container(
+
+          ),
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
@@ -553,7 +625,7 @@ class _MyGameState extends State<MyGame> {
                         }else{
                           _gameOver = true;
                           _keterangan = "Jawaban Salah";
-                          showAlert(context, "Game Over", _keterangan);
+                          showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                           _timerWaktu.cancel();
                           setState(() {
 
@@ -564,7 +636,7 @@ class _MyGameState extends State<MyGame> {
                         if (_soalNo == 50){ //. habis
                           _gameOver = true;
                           _keterangan = "Soal Selesai";
-                          showAlert(context, "Game Over", _keterangan);
+                          showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                           _timerWaktu.cancel();
                           setState(() {
 
@@ -599,7 +671,7 @@ class _MyGameState extends State<MyGame> {
                         }else{
                           _gameOver = true;
                           _keterangan = "Jawaban Salah";
-                          showAlert(context, "Game Over", _keterangan);
+                          showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                           _timerWaktu.cancel();
                           setState(() {
 
@@ -609,7 +681,7 @@ class _MyGameState extends State<MyGame> {
                         if (_soalNo == 50){ //. habis
                           _gameOver = true;
                           _keterangan = "Soal Selesai";
-                          showAlert(context, "Game Over", _keterangan);
+                          showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                           _timerWaktu.cancel();
                           setState(() {
 
@@ -650,7 +722,7 @@ class _MyGameState extends State<MyGame> {
                           }else{
                             _gameOver = true;
                             _keterangan = "Jawaban Salah";
-                            showAlert(context, "Game Over", _keterangan);
+                            showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                             _timerWaktu.cancel();
                             setState(() {
 
@@ -660,7 +732,7 @@ class _MyGameState extends State<MyGame> {
                           if (_soalNo == 50){ //. habis
                             _gameOver = true;
                             _keterangan = "Soal Selesai";
-                            showAlert(context, "Game Over", _keterangan);
+                            showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                             _timerWaktu.cancel();
                             setState(() {
 
@@ -695,7 +767,7 @@ class _MyGameState extends State<MyGame> {
                           }else{
                             _gameOver = true;
                             _keterangan = "Jawaban Salah";
-                            showAlert(context, "Game Over", _keterangan);
+                            showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                             _timerWaktu.cancel();
                             setState(() {
 
@@ -705,7 +777,7 @@ class _MyGameState extends State<MyGame> {
                           if (_soalNo == 50){ //. habis
                             _gameOver = true;
                             _keterangan = "Soal Selesai";
-                            showAlert(context, "Game Over", _keterangan);
+                            showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
                             _timerWaktu.cancel();
                             setState(() {
 
@@ -729,46 +801,62 @@ class _MyGameState extends State<MyGame> {
             ),
           ),
           SizedBox(height: 10,),
-
           Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-            decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2.0),
-                boxShadow: [
-                  BoxShadow(blurRadius: 2.0, color: Colors.grey)
-                ]),
-            child: Text("Perolehan Score", style: TextStyle(
-                fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold
-            ),),
-          ),
-          SizedBox(height: 10,),
-          Container(
-            alignment: Alignment.center,
-            child: Text("$_score", style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),),
-          ),
-
-          SizedBox(height: 10,),
-          Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-            decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2.0),
-                boxShadow: [
-                  BoxShadow(blurRadius: 2.0, color: Colors.grey)
-                ]),
-            child: Text("Perolehan Bintang", style: TextStyle(
-                fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold
-            ),),
-          ),
-          SizedBox(height: 10,),
-          Container(
-            height: 30,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: getBintang(),
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(2.0),
+                            boxShadow: [
+                              BoxShadow(blurRadius: 2.0, color: Colors.grey)
+                            ]),
+                        child: Text("Score Kamu", style: TextStyle(
+                            fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold
+                        ),),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text("$_score", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                        height: 40,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                        decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(2.0),
+                            boxShadow: [
+                              BoxShadow(blurRadius: 2.0, color: Colors.grey)
+                            ]),
+                        child: Text("Bintang Kamu", style: TextStyle(
+                            fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold
+                        ),),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                        height: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: getBintang(),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
           SizedBox(height: 10,),
@@ -822,32 +910,7 @@ class _MyGameState extends State<MyGame> {
                 fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold
             ),),
           ),
-          _gameOver? Container(
-            alignment: Alignment.center,
-            child: FlatButton(
-              child: Text("(Klik Mulai Lagi)", style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 18),),
-              onPressed: (){
-                _gameOver = false;
-                _gameStart = true;
-                if (widget.level == 1){
-                  _timeLevel = 15;
-                }else if (widget.level == 2){
-                  _timeLevel = 10;
-                }else{
-                  _timeLevel = 5;
-                }
-                _timeLevelRemain = _timeLevel;
-                Future.delayed(Duration(milliseconds: 500), (){
-                  _soalNo = 1;
 
-                  _gameStart = true;
-                  _timerProgress = _size.width;
-                  generateSoal();
-                  startTimerWaktu();
-                });
-              },
-            ),
-          ) : Container(),
 
         ],
       ),
@@ -905,7 +968,7 @@ class _MyGameState extends State<MyGame> {
           _timerWaktu.cancel();
           _gameOver = true;
           _keterangan = "Waktu Habis";
-          showAlert(context, "Game Over", _keterangan);
+          showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
         }
 
 
@@ -913,7 +976,7 @@ class _MyGameState extends State<MyGame> {
         _timerWaktu.cancel();
         _gameOver = true;
         _keterangan = "Waktu Habis";
-        showAlert(context, "Game Over", _keterangan);
+        showAlert(context, "Game Over", "$_keterangan, Kamu dapat score $_score, dan $_totalBintang bintang.");
       }
       setState(() {
 
