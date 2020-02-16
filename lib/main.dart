@@ -512,6 +512,7 @@ class _MyGameState extends State<MyGame> {
                 _totalBintang = 0;
                 _gameOver = false;
                 _gameStart = true;
+                _score = 0;
                 if (widget.level == 0){
                   _timeLevel = 20;
                 }else if (widget.level == 1){
